@@ -17,6 +17,13 @@ class ItargetService
     {
         $response = Http::get("{$this->url}/event.php");
 
-        return $response->json();
+        return $response->json()['data'];
+    }
+
+    public function getEvent(int $id)
+    {
+        $response = Http::get("{$this->url}/event.php")->json()['data'];
+
+        return collect($response)->values()->where('id', $id)->first();
     }
 }
