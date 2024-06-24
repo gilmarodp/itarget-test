@@ -15,4 +15,11 @@ class Registration extends Model
         'email',
         'event_id',
     ];
+
+    protected function casts()
+    {
+        return [
+            'created_at' => 'datetime:d/m/Y H:i:s',
+        ];
+    }
 }
