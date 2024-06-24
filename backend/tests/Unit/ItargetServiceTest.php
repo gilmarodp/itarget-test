@@ -29,8 +29,8 @@ class ItargetServiceTest extends TestCase
         $this->assertEquals([
             'id' => 1,
             'name' => 'Evento de programação backend java',
-            'start_date' => '2024-06-23',
-            'end_date' => '2024-06-25',
+            'start_date' => now()->format('Y-m-d'),
+            'end_date' => now()->addDays(2)->format('Y-m-d'),
             'status' => false
         ], $response);
     }
