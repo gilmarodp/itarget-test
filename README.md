@@ -131,3 +131,9 @@ Para rodar os testes, execute o seguinte comando:
 
 ## Conclusão
 Pronto! Agora você pode acessar o projeto e testar as funcionalidades.
+
+Se quiser parar o container, basta usar o seguinte comando:
+
+   ```bash
+   ./vendor/bin/sail down
+   ````
