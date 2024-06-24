@@ -30,60 +30,30 @@ Antes de começar, certifique-se de ter o seguinte instalado:
    ```bash
    composer install
    ```
-   
-3. **Instale as dependências do JavaScript**
 
-   Navegue até o diretório do projeto e instale as dependências do JavaScript usando o Yarn:
-
-   ```bash
-   cd frontend
-   ```
-   ```bash
-   yarn install
-   ```
-   
-4. **Inicie o servidor PHP**
-
-   Navegue até o diretório do projeto e inicie o servidor PHP:
-
-   ```bash
-   cd backend
-   ```
+3. **Gerando chave da aplicação**
    ```bash
    cp .env.example .env
    ```
    ```bash
    php artisan key:generate
    ```
+
+3. **Iniciando o Laravel Sail**
    ```bash
-   php artisan serve
+   ./vendor/bin/sail up -d
    ```
    
-5. **Inicie o servidor React**
-
-   Navegue até o diretório do projeto e inicie o servidor React:
-
-   ```bash
-   cd frontend
-   ```
-   ```bash
-   yarn dev
-   ```
-   
-## Ajustando o arquivo .env
-
-1. **Crie um arquivo .env**
+5. **Crie um arquivo .env**
     Você também deve criar um arquivo .env no diretório frontend e adicionar a variável de ambiente NEXT_PUBLIC_BACKEND_URL:
 
     ```bash
-    cd frontend
+    echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:80" >> ../frontend/.env.local
     ```
-    ```bash
-    echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:8000" >> .env.local
-    ```
-
    
-2. **Configure o arquivo .env**
+## Ajustando o arquivo .env
+
+1. **Configure o arquivo .env**
 
    Abra o arquivo .env e configure as variáveis de ambiente:
 
@@ -91,26 +61,42 @@ Antes de começar, certifique-se de ter o seguinte instalado:
     FRONTEND_URL=http://localhost:3000
 
     DB_CONNECTION=mysql
-    DB_HOST=localhost
+    DB_HOST=mysql
     DB_PORT=3306
     DB_DATABASE=itarget_test
-    DB_USERNAME=root
-    DB_PASSWORD=root
+    DB_USERNAME=sail
+    DB_PASSWORD=password
     ```
    
 3. **Crie o banco de dados**
 
-   Crie um banco de dados chamado `itarget_test` no MySQL.
+   O próprio laravel sail vai criar para você o banco `itarget_test`.
 
 4. **Execute as migrações**
 
    Execute as migrações para criar as tabelas no banco de dados:
 
    ```bash
-   php artisan optimize
+   ./vendor/bin/sail artisan optimize
    ```
    ```bash
-   php artisan migrate
+   ./vendor/bin/sail artisan migrate
+   ```
+
+   **OBS:** Caso ocorra um erro falando que não
+   tem permissão para criar o diretório `backend/storage/logs`, basta você mesmo criar usando o comando:
+
+   ```bash
+   mkdir -p storage/logs
+   ```
+
+   Depois, é só tentar rodar novamente:
+
+   ```bash
+   ./vendor/bin/sail artisan optimize
+   ```
+   ```bash
+   ./vendor/bin/sail artisan migrate
    ```
    
 5. **Execute o seeder**
@@ -118,7 +104,7 @@ Antes de começar, certifique-se de ter o seguinte instalado:
    Execute o seeder para popular a tabela de usuários:
 
    ```bash
-   php artisan db:seed
+   ./vendor/bin/sail artisan db:seed
    ```
    
 6. **Acesse o projeto**
@@ -139,10 +125,7 @@ Antes de começar, certifique-se de ter o seguinte instalado:
 Para rodar os testes, execute o seguinte comando:
 
 ```bash
-cd backend
-```
-```bash
-php artisan test
+./vendor/bin/sail artisan test
 ```
 
 
